@@ -2,7 +2,6 @@
 
 // Public variable that contains the speed of the enemy
 public var speed : int = -5;
-var score : int = 0;
 
 // Function called when the enemy is created
 function Start () {  
@@ -17,30 +16,24 @@ function Start () {
     Destroy(gameObject, 3);
 }
 
-// Function called when the enemy collides with another object
 function OnTriggerEnter2D(obj : Collider2D) {  
     var name = obj.gameObject.name;
 
     // If it collided with a bullet
     if (name == "bullet(Clone)") {
-        // Destroy itself (the enemy)
-        Destroy(gameObject);
-
         // And destroy the bullet
         Destroy(obj.gameObject);
         
-        score++;
+        handleDestroy(gameObject);
     }
 
     // If it collided with the spaceship
     if (name == "spaceship") {
-        // Destroy itself (the enemy) to keep things simple
-        Destroy(gameObject);
+        handleDestroy(gameObject);
     }
 }
 
-function OnGUI () 
-{
-	GUI.color = Color.white;
- 	GUILayout.Label(" Kills: " + score.ToString());
+function handleDestroy(gameObject: GameObject){
+	gameObject.Find("ScoreText").SendMessage("Hit");
+    Destroy(gameObject);
 }

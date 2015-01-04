@@ -13,7 +13,6 @@ function Start() {
 // New function to spawn an enemy
 function addEnemy() {  
     // Variables to store the X position of the spawn object
-    // See image below
     var x1 = transform.position.x - renderer.bounds.size.x/2;
     var x2 = transform.position.x + renderer.bounds.size.x/2;
 
@@ -22,4 +21,6 @@ function addEnemy() {
 
     // Create an enemy at the 'spawnPoint' position
     Instantiate(enemy, spawnPoint, Quaternion.identity);
+    
+    gameObject.Find("RocksText").SendMessage("RockAdd");
 }
